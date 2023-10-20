@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"os"
@@ -11,7 +11,7 @@ import (
 
 var database *gorm.DB
 
-func main() {
+func Execute() {
 	database = db.Connect(os.Getenv("ENV"))
 	grpc.Start(database, 50051)
 }
