@@ -1,9 +1,18 @@
 services:
-  app:
-    build: .
+  products-server:
+    build: ./products-server
     ports:
     - "50051:50051"
     volumes:
-      - .:/go/src/
+      - ./products-server/:/go/src/
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  nestjs:
+    build: ./nestjs
+    ports:
+      - 3000:3000
+      - 3001:3001
+    volumes:
+      - ./nestjs/:/home/node/app
     extra_hosts:
       - "host.docker.internal:host-gateway"
