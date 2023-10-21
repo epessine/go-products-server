@@ -4,4 +4,4 @@ This is an experiment to create an gRPC server using Golang to serve a "products
 ___
 ## Instructions to run
 1. Clone repo
-2. `docker-compose up -d` to start the containers and run apps
+2. `docker-compose up` to start the containers and run apps
