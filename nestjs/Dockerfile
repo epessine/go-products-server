@@ -8,12 +8,6 @@ RUN apt update -y && \
 
 USER node
 
-CMD [ "tail", "-f", "/dev/null" ]
-
-FROM development AS build
-
-CMD [ "npm", "ci" ]
-
-FROM build AS serve
-
-CMD [ "npm", "run", "start:dev" ]
+CMD npm ci && \
+    npm run start:dev && \
+    tail -f /dev/null
