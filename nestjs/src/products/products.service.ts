@@ -1,13 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
+import { ClientGrpc } from '@nestjs/microservices';
+import { ProductsClientGrpc } from './products.grpc';
 
 @Injectable()
-export class ProductsService {
+export class ProductsService implements OnModuleInit {
+  private productsGrpcService: ProductsClientGrpc;
+
+  constructor(
+    @Inject('PRODUCTS_PACKAGE') private productsGrpcPackage: ClientGrpc,
+  ) {}
+
+  onModuleInit() {
+    this.productsGrpcService =
+      this.productsGrpcPackage.getService('ProductService');
+  }
+
   create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+    return this.productsGrpcService.createProduct(createProductDto);
   }
 
   findAll() {
-    return `This action returns all products`;
+    return this.productsGrpcService.findProducts({});
   }
 }
